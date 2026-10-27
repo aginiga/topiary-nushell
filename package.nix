@@ -33,14 +33,7 @@ writeShellApplication (
       })
     ) { };
 
-    extension =
-      with stdenv;
-      if isLinux then
-        ".so"
-      else if isDarwin then
-        ".dylib"
-      else
-        throw "Unsupported system: ${system}";
+    extension = stdenv.hostPlatform.extensions.sharedLibrary;
 
     # Create a directory holding ALL runtime config files
     # This makes a single path for GC root.
